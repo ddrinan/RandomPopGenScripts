@@ -1,10 +1,18 @@
 
-# January 20, 2017
-# Daniel Drinan <ddrinan@uw.edu>
-# 
+################################################################################
+#   
+# parseGenepopHWE.py
+#
+# Daniel Drinan <ddrinan@uw.edu> 2017-01-20
+#
 # This script parses a genepop output file for tests of Hardy-Weinberg Equilibrium
 # (probability test). The script will spit out the loci that should be retained
+# 
+# Usage:
+# $> python parseGenepopHWE.py
 #
+################################################################################
+
 
 import sys
 
@@ -127,4 +135,3 @@ QCI_M075_1  0.0000  0.0000  -1.0000 -1.0000  65984 switches
 ......
 
 '''
-
