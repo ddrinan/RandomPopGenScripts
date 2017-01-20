@@ -9,7 +9,7 @@
 # (probability test). The script will spit out the loci that should be retained
 # 
 # Usage:
-# $> python parseGenepopHWE.py
+# $> python parseGenepopHWE.py <input_file> <output_file>
 #
 ################################################################################
 
@@ -36,16 +36,17 @@ print 'Number of loci detected:', numLoci
 
 
 # get user input to figure out how many loci must be in HWE to retain
-value = input('How many populations must be in HWE to retain a locus? ')
+value = raw_input('How many populations must be in HWE to retain a locus? ')
+threshold = -1
 
 try:
     threshold = int(value)
-except ValueError:
+except:
     print('\nHey joker, you did not enter a valid integer.')
-    sys.exit(0)
+    sys.exit()
 
 
-
+outputFile = open(sys.arg[2], 'w')
 
 # parse the meat of the file
 while numLoci > 0:
@@ -70,7 +71,7 @@ while numLoci > 0:
             line = genepopFile.readline()
 
         if sum(i > 0.05 for i in tmpPvals) >= threshold:
-            print tmpLocus
+            outputFile.write(tmpLocus)
 
     line = genepopFile.readline()
 
