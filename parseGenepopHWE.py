@@ -71,7 +71,7 @@ while numLoci > 0:
             line = genepopFile.readline()
 
         if sum(i > 0.05 for i in tmpPvals) >= threshold:
-            outputFile.write(tmpLocus)
+            outputFile.write(tmpLocus + '\n')
 
     line = genepopFile.readline()
 
