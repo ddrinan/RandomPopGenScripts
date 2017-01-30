@@ -4,7 +4,7 @@
 #   
 # subsetGenepop.py
 #
-# Daniel Drinan <ddrinan@uw.edu> 2016-12-06
+# Daniel Drinan <ddrinan@uw.edu> 2017-01-30
 #
 # Script to subset loci from a GENEPOP file.
 # 
@@ -127,11 +127,15 @@ output_genepop = 'Subsample of loci ' + st + '\n'
 number = []
 if choice1 == 'A' and len(loci) > num_loci: # select a random set of loci
     number = np.random.choice(len(loci), num_loci, replace=False)
-
+elif choice1 == 'B':
+    tmp_counter = -1
+    for locus in loci: # 'loci' is a list of loci that exist in the genepop file
+        tmp_counter += 1
+        if locus in loci_to_retain: # names of all the loci to keep
+            number.append(tmp_counter)
 
 for item in number:
     output_genepop += loci[item] + '\n'
-
 
 
 
@@ -140,16 +144,20 @@ for item in number:
 ## Parse through genotypes in GENEPOP file to subsample
 ##
 ################################################################################
+if choice1 == 'B': # 
+    line = genepop_input.readline()
+
 while line:
     if 'pop' in line or 'POP' in line or 'Pop' in line:
         output_genepop += line
     elif len(line) > 2:
         tmp_line = line.replace(' ,', ',').replace('\t,', ',')
         
-        output_genepop += tmp_line.split()[0]
+        output_genepop += tmp_line.split(',')[0]
         line_split = tmp_line.split()[1:]
 
         for i in number:
+            print i, len(line_split), tmp_line[0:30]
             output_genepop += ' ' + line_split[i] + ' '
 
         output_genepop += '\n'
@@ -171,7 +179,3 @@ output_file = raw_input("Where do you want to save your new GENEPOP file? ")
 output_file_genepop = open(output_file, 'w')
 output_file_genepop.write(output_genepop)
 output_file_genepop.close()
-
-
-
-
