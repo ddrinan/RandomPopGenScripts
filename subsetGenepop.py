@@ -4,7 +4,7 @@
 #   
 # subsetGenepop.py
 #
-# Daniel Drinan <ddrinan@uw.edu> 2017-01-30
+# Daniel Drinan <ddrinan@uw.edu> 2017-10-13
 #
 # Script to subset loci from a GENEPOP file.
 # 
@@ -111,7 +111,7 @@ elif locus_format == 'B':
         loci.append(line.split()[0])
         line = genepop_input.readline()
 
-
+print 'loci =', loci
 
 
 ################################################################################
@@ -154,6 +154,7 @@ while line:
         tmp_line = line.replace(' ,', ',').replace('\t,', ',')
         
         output_genepop += tmp_line.split(',')[0]
+        output_genepop += ','
         line_split = tmp_line.split()[1:]
 
         for i in number:
@@ -179,3 +180,4 @@ output_file = raw_input("Where do you want to save your new GENEPOP file? ")
 output_file_genepop = open(output_file, 'w')
 output_file_genepop.write(output_genepop)
 output_file_genepop.close()
+
